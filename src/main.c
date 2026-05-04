@@ -1,15 +1,20 @@
 #include <stdio.h>
 #include "cpu/cpu.h"
 #include "bus/bus.h"
+#include "instruction/instruction.h"
 
-void test_cpu_reset(CPU *cpu, Bus *bus);
+void test_cpu_reset(CPU *cpu);
+void test_lda_execution(CPU *cpu);
 
 int main()
 {
     CPU cpu = {0};
     Bus bus = {0};
 
-    test_cpu_reset(&cpu, &bus);
+    cpu.bus = &bus;
+
+    init_instructions_table();
+    test_lda_execution(&cpu);
 
     return 0;
 }

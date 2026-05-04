@@ -10,12 +10,19 @@ else()
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Werror")
 endif()
 
+# Path to the source files
+set(TEST_SOURCES
+    tests/test_cpu_reset.c
+    tests/test_lda_execution.c
+)
+
 add_executable(Emulator-MOS6502
     src/main.c
     src/bus/bus.c
     src/cpu/flags.c
     src/cpu/cpu.c
-    tests/test_reset.c
+    src/instruction/instruction.c
+    ${TEST_SOURCES}
 )
 
 target_include_directories(

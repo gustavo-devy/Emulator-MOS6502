@@ -16,10 +16,16 @@ typedef struct CPU
 
     Bus *bus; // Pointer to the bus for memory access
 
+    uint16_t addr_abs;
+    uint16_t addr_rel;
+    uint8_t opcode;
     uint8_t cycles;        // Cycles for the current instruction
     uint32_t total_cycles; // Total cycles executed
 } CPU;
 
-void cpu_reset(CPU *cpu, Bus *bus);
+void cpu_step(CPU *cpu);
+void cpu_reset(CPU *cpu);
+
+uint8_t cpu_inst_lda(CPU *cpu);
 
 #endif // CPU_H

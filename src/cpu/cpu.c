@@ -1,9 +1,10 @@
 #include "cpu/cpu.h"
+#include "instruction/instruction.h"
 
-void cpu_reset(CPU *cpu, Bus *bus)
+void cpu_reset(CPU *cpu)
 {
-    uint16_t lo = bus_read(bus, 0xFFFC);
-    uint16_t hi = bus_read(bus, 0xFFFD);
+    uint16_t lo = bus_read(cpu->bus, 0xFFFC);
+    uint16_t hi = bus_read(cpu->bus, 0xFFFD);
 
     cpu->PC = (hi << 8) | lo; // Set the program counter
 
@@ -15,4 +16,37 @@ void cpu_reset(CPU *cpu, Bus *bus)
 
     cpu->cycles = 0;
     cpu->total_cycles = 0;
+}
+
+void cpu_step(CPU *cpu)
+{
+    if (cpu->cycles == 0)
+    {
+        // Fetch the next instruction
+        cpu->opcode = bus_read(cpu->bus, cpu->PC);
+        cpu->PC++;
+
+        // Execute the instruction
+        Instruction inst = instructions[cpu->opcode];
+
+        cpu->cycles = inst.cycles; // Set the cycles for the instruction
+
+        uint8_t c1 = inst.addrmode(cpu);
+        uint8_t c2 = inst.operate(cpu);
+        cpu->cycles += (c1 & c2);
+    }
+
+    cpu->cycles--;
+    cpu->total_cycles++;
+}
+
+uint8_t cpu_inst_lda(CPU *cpu)
+{
+    uint8_t value = bus_read(cpu->bus, cpu->addr_abs);
+    cpu->A = value;
+
+    set_flag(cpu, Z, cpu->A == 0);
+    set_flag(cpu, N, cpu->A & 0x80);
+
+    return 1;
 }
