@@ -12,6 +12,10 @@ endif()
 
 add_executable(Emulator-MOS6502
     src/main.c
+    src/bus/bus.c
+    src/cpu/flags.c
+    src/cpu/cpu.c
+    tests/test_reset.c
 )
 
 target_include_directories(
