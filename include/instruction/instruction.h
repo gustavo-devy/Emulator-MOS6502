@@ -19,6 +19,9 @@ typedef struct Instruction
 extern Instruction instructions[256];
 
 void init_instructions_table();
+
+// Addressing mode functions
 uint8_t addr_imm(CPU *cpu);
+uint8_t addr_abs(CPU *cpu);
 
 #endif // INSTRUCTION_H

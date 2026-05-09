@@ -50,3 +50,10 @@ uint8_t cpu_inst_lda(CPU *cpu)
 
     return 1;
 }
+
+uint8_t cpu_inst_sta(CPU *cpu)
+{
+    bus_write(cpu->bus, cpu->addr_abs, cpu->A);
+
+    return 0;
+}

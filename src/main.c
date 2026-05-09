@@ -5,6 +5,7 @@
 
 void test_cpu_reset(CPU *cpu);
 void test_lda_execution(CPU *cpu);
+void test_sta_execution(CPU *cpu);
 
 int main()
 {
@@ -14,7 +15,7 @@ int main()
     cpu.bus = &bus;
 
     init_instructions_table();
-    test_lda_execution(&cpu);
+    test_sta_execution(&cpu);
 
     return 0;
 }

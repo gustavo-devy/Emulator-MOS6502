@@ -14,6 +14,7 @@ endif()
 set(TEST_SOURCES
     tests/test_cpu_reset.c
     tests/test_lda_execution.c
+    tests/test_sta_execution.c
 )
 
 add_executable(Emulator-MOS6502
