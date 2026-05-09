@@ -23,12 +23,114 @@ uint8_t addr_imm(CPU *cpu)
     return 0;
 }
 
+uint8_t addr_zp(CPU *cpu)
+{
+    cpu->addr_abs = bus_read(cpu->bus, cpu->PC++);
+
+    return 0;
+}
+
+uint8_t addr_zpx(CPU *cpu)
+{
+    cpu->addr_abs = (bus_read(cpu->bus, cpu->PC++) + cpu->X) & 0xFF;
+
+    return 0;
+}
+
+uint8_t addr_zpy(CPU *cpu)
+{
+    cpu->addr_abs = (bus_read(cpu->bus, cpu->PC++) + cpu->Y) & 0xFF;
+
+    return 0;
+}
+
 uint8_t addr_abs(CPU *cpu)
 {
     uint16_t lo = bus_read(cpu->bus, cpu->PC++);
     uint16_t hi = bus_read(cpu->bus, cpu->PC++);
 
     cpu->addr_abs = (hi << 8) | lo;
+
+    return 0;
+}
+
+uint8_t addr_abx(CPU *cpu)
+{
+    uint16_t lo = bus_read(cpu->bus, cpu->PC++);
+    uint16_t hi = bus_read(cpu->bus, cpu->PC++);
+
+    cpu->addr_abs = ((hi << 8) | lo) + cpu->X;
+
+    if ((cpu->addr_abs & 0xFF00) != (hi << 8)) // Verify if page boundary is crossed
+        return 1;
+
+    return 0;
+}
+
+uint8_t addr_aby(CPU *cpu)
+{
+    uint16_t lo = bus_read(cpu->bus, cpu->PC++);
+    uint16_t hi = bus_read(cpu->bus, cpu->PC++);
+
+    cpu->addr_abs = ((hi << 8) | lo) + cpu->Y;
+
+    if ((cpu->addr_abs & 0xFF00) != (hi << 8)) // Verify if page boundary is crossed
+        return 1;
+
+    return 0;
+}
+
+uint8_t addr_ind(CPU *cpu)
+{
+    uint16_t ptr_lo = bus_read(cpu->bus, cpu->PC++);
+    uint16_t ptr_hi = bus_read(cpu->bus, cpu->PC++);
+
+    uint16_t ptr = (ptr_hi << 8) | ptr_lo;
+
+    // Handle page boundary bug
+    if (ptr_lo == 0xFF)
+    {
+        cpu->addr_abs = (bus_read(cpu->bus, ptr & 0xFF00) << 8) | bus_read(cpu->bus, ptr);
+    }
+    else
+    {
+        cpu->addr_abs = (bus_read(cpu->bus, ptr + 1) << 8) | bus_read(cpu->bus, ptr);
+    }
+
+    return 0;
+}
+
+uint8_t addr_izx(CPU *cpu)
+{
+    uint16_t t = bus_read(cpu->bus, cpu->PC++);
+    uint16_t lo = bus_read(cpu->bus, (t + cpu->X) & 0xFF);
+    uint16_t hi = bus_read(cpu->bus, (t + cpu->X + 1) & 0xFF);
+
+    cpu->addr_abs = (hi << 8) | lo;
+
+    return 0;
+}
+
+uint8_t addr_izy(CPU *cpu)
+{
+    uint16_t t = bus_read(cpu->bus, cpu->PC++);
+    uint16_t lo = bus_read(cpu->bus, t & 0xFF);
+    uint16_t hi = bus_read(cpu->bus, (t + 1) & 0xFF);
+
+    cpu->addr_abs = ((hi << 8) | lo) + cpu->Y;
+
+    if ((cpu->addr_abs & 0xFF00) != (hi << 8)) // Verify if page boundary is crossed
+        return 1;
+
+    return 0;
+}
+
+uint8_t addr_rel(CPU *cpu)
+{
+    cpu->addr_rel = bus_read(cpu->bus, cpu->PC++);
+
+    if (cpu->addr_rel & 0x80) // If the sign bit is set, we need to convert to a negative offset
+        cpu->addr_rel |= 0xFF00;
 
     return 0;
 }
