@@ -48,7 +48,10 @@ void init_instructions_table()
     // INX Instruction
     instructions[0xE8] = (Instruction){"INX", cpu_inst_inx, addr_impl, 2};
 
-    // JMP Instruction
+    // BNE Instruction
+    instructions[0xD0] = (Instruction){"BNE", cpu_inst_bne, addr_rel, 2};
+
+    // JMP Instructions
     instructions[0x4C] = (Instruction){"JMP", cpu_inst_jmp, addr_abs, 3};
     instructions[0x6C] = (Instruction){"JMP", cpu_inst_jmp, addr_ind, 5};
 }
