@@ -6,6 +6,7 @@
 void test_cpu_reset(CPU *cpu);
 void test_lda_execution(CPU *cpu);
 void test_ldx_execution(CPU *cpu);
+void test_ldy_execution(CPU *cpu);
 void test_sta_execution(CPU *cpu);
 void test_stx_execution(CPU *cpu);
 void test_address_modes(CPU *cpu);
@@ -23,7 +24,7 @@ int main()
     cpu.bus = &bus;
 
     init_instructions_table();
-    test_beq_execution(&cpu);
+    test_ldy_execution(&cpu);
 
     return 0;
 }
