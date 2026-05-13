@@ -29,7 +29,13 @@ void init_instructions_table()
     instructions[0xBE] = (Instruction){"LDX", cpu_inst_ldx, addr_aby, 4};
 
     // STA Instructions
+    instructions[0x85] = (Instruction){"STA", cpu_inst_sta, addr_zp, 3};
+    instructions[0x95] = (Instruction){"STA", cpu_inst_sta, addr_zpx, 4};
     instructions[0x8D] = (Instruction){"STA", cpu_inst_sta, addr_abs, 4};
+    instructions[0x9D] = (Instruction){"STA", cpu_inst_sta, addr_abx, 5};
+    instructions[0x99] = (Instruction){"STA", cpu_inst_sta, addr_aby, 5};
+    instructions[0x81] = (Instruction){"STA", cpu_inst_sta, addr_izx, 6};
+    instructions[0x91] = (Instruction){"STA", cpu_inst_sta, addr_izy, 6};
 }
 
 uint8_t addr_imm(CPU *cpu)

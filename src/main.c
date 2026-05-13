@@ -17,7 +17,7 @@ int main()
     cpu.bus = &bus;
 
     init_instructions_table();
-    test_ldx_execution(&cpu);
+    test_sta_execution(&cpu);
 
     return 0;
 }
