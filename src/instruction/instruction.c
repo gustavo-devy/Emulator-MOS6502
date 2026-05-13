@@ -75,6 +75,11 @@ void init_instructions_table()
     instructions[0xE4] = (Instruction){"CPX", cpu_inst_cpx, addr_zp, 3};
     instructions[0xEC] = (Instruction){"CPX", cpu_inst_cpx, addr_abs, 4};
 
+    // CPY Instructions
+    instructions[0xC0] = (Instruction){"CPY", cpu_inst_cpy, addr_imm, 2};
+    instructions[0xC4] = (Instruction){"CPY", cpu_inst_cpy, addr_zp, 3};
+    instructions[0xCC] = (Instruction){"CPY", cpu_inst_cpy, addr_abs, 4};
+
     // BNE Instruction
     instructions[0xD0] = (Instruction){"BNE", cpu_inst_bne, addr_rel, 2};
 
