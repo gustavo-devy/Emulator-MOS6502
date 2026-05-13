@@ -51,6 +51,9 @@ void init_instructions_table()
     // BNE Instruction
     instructions[0xD0] = (Instruction){"BNE", cpu_inst_bne, addr_rel, 2};
 
+    // BEQ Instruction
+    instructions[0xF0] = (Instruction){"BEQ", cpu_inst_beq, addr_rel, 2};
+
     // JMP Instructions
     instructions[0x4C] = (Instruction){"JMP", cpu_inst_jmp, addr_abs, 3};
     instructions[0x6C] = (Instruction){"JMP", cpu_inst_jmp, addr_ind, 5};

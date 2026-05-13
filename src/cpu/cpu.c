@@ -111,6 +111,21 @@ uint8_t cpu_inst_bne(CPU *cpu)
     return 0; // Branch not taken
 }
 
+uint8_t cpu_inst_beq(CPU *cpu)
+{
+    if (get_flag(cpu, Z))
+    {
+        cpu->PC += cpu->addr_rel;
+
+        if ((cpu->PC & 0xFF00) != ((cpu->PC - cpu->addr_rel) & 0xFF00))
+            return 2; // Page boundary crossed
+
+        return 1; // Branch taken
+    }
+
+    return 0; // Branch not taken
+}
+
 uint8_t cpu_inst_jmp(CPU *cpu)
 {
     cpu->PC = cpu->addr_abs;
