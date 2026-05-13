@@ -126,6 +126,18 @@ uint8_t cpu_inst_cmp(CPU *cpu)
     return 1;
 }
 
+uint8_t cpu_inst_cpx(CPU *cpu)
+{
+    uint8_t value = bus_read(cpu->bus, cpu->addr_abs);
+    uint16_t temp = (uint16_t)cpu->X - (uint16_t)value;
+
+    set_flag(cpu, C, cpu->X >= value);
+    set_flag(cpu, Z, (temp & 0x00FF) == 0);
+    set_flag(cpu, N, temp & 0x80);
+
+    return 1;
+}
+
 uint8_t cpu_inst_bne(CPU *cpu)
 {
     if (!get_flag(cpu, Z))

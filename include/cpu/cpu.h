@@ -36,6 +36,7 @@ uint8_t cpu_inst_sty(CPU *cpu);
 uint8_t cpu_inst_dex(CPU *cpu);
 uint8_t cpu_inst_inx(CPU *cpu);
 uint8_t cpu_inst_cmp(CPU *cpu);
+uint8_t cpu_inst_cpx(CPU *cpu);
 uint8_t cpu_inst_bne(CPU *cpu);
 uint8_t cpu_inst_beq(CPU *cpu);
 uint8_t cpu_inst_jmp(CPU *cpu);
