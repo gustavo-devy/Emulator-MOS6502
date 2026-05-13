@@ -69,6 +69,13 @@ uint8_t cpu_inst_sta(CPU *cpu)
     return 0;
 }
 
+uint8_t cpu_inst_stx(CPU *cpu)
+{
+    bus_write(cpu->bus, cpu->addr_abs, cpu->X);
+
+    return 0;
+}
+
 uint8_t cpu_inst_dex(CPU *cpu)
 {
     cpu->X--;

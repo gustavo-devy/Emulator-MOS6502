@@ -30,6 +30,7 @@ void cpu_reset(CPU *cpu);
 uint8_t cpu_inst_lda(CPU *cpu);
 uint8_t cpu_inst_ldx(CPU *cpu);
 uint8_t cpu_inst_sta(CPU *cpu);
+uint8_t cpu_inst_stx(CPU *cpu);
 uint8_t cpu_inst_dex(CPU *cpu);
 uint8_t cpu_inst_inx(CPU *cpu);
 uint8_t cpu_inst_jmp(CPU *cpu);
