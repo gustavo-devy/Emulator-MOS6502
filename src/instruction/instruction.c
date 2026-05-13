@@ -49,6 +49,11 @@ void init_instructions_table()
     instructions[0x96] = (Instruction){"STX", cpu_inst_stx, addr_zpy, 4};
     instructions[0x8E] = (Instruction){"STX", cpu_inst_stx, addr_abs, 4};
 
+    // STY Instructions
+    instructions[0x84] = (Instruction){"STY", cpu_inst_sty, addr_zp, 3};
+    instructions[0x94] = (Instruction){"STY", cpu_inst_sty, addr_zpx, 4};
+    instructions[0x8C] = (Instruction){"STY", cpu_inst_sty, addr_abs, 4};
+
     // DEX Instruction
     instructions[0xCA] = (Instruction){"DEX", cpu_inst_dex, addr_impl, 2};
 

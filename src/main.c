@@ -9,6 +9,7 @@ void test_ldx_execution(CPU *cpu);
 void test_ldy_execution(CPU *cpu);
 void test_sta_execution(CPU *cpu);
 void test_stx_execution(CPU *cpu);
+void test_sty_execution(CPU *cpu);
 void test_address_modes(CPU *cpu);
 void test_dex_execution(CPU *cpu);
 void test_inx_execution(CPU *cpu);
@@ -24,7 +25,7 @@ int main()
     cpu.bus = &bus;
 
     init_instructions_table();
-    test_ldy_execution(&cpu);
+    test_sty_execution(&cpu);
 
     return 0;
 }
