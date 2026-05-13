@@ -68,3 +68,13 @@ uint8_t cpu_inst_sta(CPU *cpu)
 
     return 0;
 }
+
+uint8_t cpu_inst_dex(CPU *cpu)
+{
+    cpu->X--;
+
+    set_flag(cpu, Z, cpu->X == 0);
+    set_flag(cpu, N, cpu->X & 0x80);
+
+    return 0;
+}

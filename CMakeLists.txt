@@ -26,6 +26,7 @@ add_executable(Emulator-MOS6502
     src/cpu/cpu.c
     src/instruction/instruction.c
     ${TEST_SOURCES}
+    tests/test_dex_execution.c
 )
 
 target_include_directories(

@@ -8,6 +8,7 @@ void test_lda_execution(CPU *cpu);
 void test_ldx_execution(CPU *cpu);
 void test_sta_execution(CPU *cpu);
 void test_address_modes(CPU *cpu);
+void test_dex_execution(CPU *cpu);
 
 int main()
 {
@@ -17,7 +18,7 @@ int main()
     cpu.bus = &bus;
 
     init_instructions_table();
-    test_sta_execution(&cpu);
+    test_dex_execution(&cpu);
 
     return 0;
 }

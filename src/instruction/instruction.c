@@ -36,6 +36,16 @@ void init_instructions_table()
     instructions[0x99] = (Instruction){"STA", cpu_inst_sta, addr_aby, 5};
     instructions[0x81] = (Instruction){"STA", cpu_inst_sta, addr_izx, 6};
     instructions[0x91] = (Instruction){"STA", cpu_inst_sta, addr_izy, 6};
+
+    // DEX Instruction
+    instructions[0xCA] = (Instruction){"DEX", cpu_inst_dex, addr_impl, 2};
+}
+
+uint8_t addr_impl(CPU *cpu)
+{
+    (void)cpu; // Unused parameter
+    // Implied addressing mode does not require any additional data
+    return 0;
 }
 
 uint8_t addr_imm(CPU *cpu)
