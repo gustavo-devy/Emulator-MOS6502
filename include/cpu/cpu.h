@@ -28,6 +28,7 @@ void cpu_reset(CPU *cpu);
 
 // Instruction implementations
 uint8_t cpu_inst_lda(CPU *cpu);
+uint8_t cpu_inst_ldx(CPU *cpu);
 uint8_t cpu_inst_sta(CPU *cpu);
 
 #endif // CPU_H

@@ -14,6 +14,7 @@ endif()
 set(TEST_SOURCES
     tests/test_cpu_reset.c
     tests/test_lda_execution.c
+    tests/test_ldx_execution.c
     tests/test_sta_execution.c
     tests/test_address_modes.c
 )

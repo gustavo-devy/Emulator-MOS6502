@@ -51,6 +51,17 @@ uint8_t cpu_inst_lda(CPU *cpu)
     return 1;
 }
 
+uint8_t cpu_inst_ldx(CPU *cpu)
+{
+    uint8_t value = bus_read(cpu->bus, cpu->addr_abs);
+    cpu->X = value;
+
+    set_flag(cpu, Z, cpu->X == 0);
+    set_flag(cpu, N, cpu->X & 0x80);
+
+    return 1;
+}
+
 uint8_t cpu_inst_sta(CPU *cpu)
 {
     bus_write(cpu->bus, cpu->addr_abs, cpu->A);

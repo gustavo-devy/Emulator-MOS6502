@@ -21,6 +21,13 @@ void init_instructions_table()
     instructions[0xA1] = (Instruction){"LDA", cpu_inst_lda, addr_izx, 6};
     instructions[0xB1] = (Instruction){"LDA", cpu_inst_lda, addr_izy, 5};
 
+    // LDX Instructions
+    instructions[0xA2] = (Instruction){"LDX", cpu_inst_ldx, addr_imm, 2};
+    instructions[0xA6] = (Instruction){"LDX", cpu_inst_ldx, addr_zp, 3};
+    instructions[0xB6] = (Instruction){"LDX", cpu_inst_ldx, addr_zpy, 4};
+    instructions[0xAE] = (Instruction){"LDX", cpu_inst_ldx, addr_abs, 4};
+    instructions[0xBE] = (Instruction){"LDX", cpu_inst_ldx, addr_aby, 4};
+
     // STA Instructions
     instructions[0x8D] = (Instruction){"STA", cpu_inst_sta, addr_abs, 4};
 }
