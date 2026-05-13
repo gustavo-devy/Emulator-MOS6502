@@ -13,6 +13,7 @@ void test_sty_execution(CPU *cpu);
 void test_address_modes(CPU *cpu);
 void test_dex_execution(CPU *cpu);
 void test_inx_execution(CPU *cpu);
+void test_cmp_execution(CPU *cpu);
 void test_bne_execution(CPU *cpu);
 void test_beq_execution(CPU *cpu);
 void test_jmp_execution(CPU *cpu);
@@ -25,7 +26,7 @@ int main()
     cpu.bus = &bus;
 
     init_instructions_table();
-    test_sty_execution(&cpu);
+    test_cmp_execution(&cpu);
 
     return 0;
 }

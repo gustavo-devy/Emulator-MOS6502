@@ -60,6 +60,16 @@ void init_instructions_table()
     // INX Instruction
     instructions[0xE8] = (Instruction){"INX", cpu_inst_inx, addr_impl, 2};
 
+    // CMP Instructions
+    instructions[0xC9] = (Instruction){"CMP", cpu_inst_cmp, addr_imm, 2};
+    instructions[0xC5] = (Instruction){"CMP", cpu_inst_cmp, addr_zp, 3};
+    instructions[0xD5] = (Instruction){"CMP", cpu_inst_cmp, addr_zpx, 4};
+    instructions[0xCD] = (Instruction){"CMP", cpu_inst_cmp, addr_abs, 4};
+    instructions[0xDD] = (Instruction){"CMP", cpu_inst_cmp, addr_abx, 4};
+    instructions[0xD9] = (Instruction){"CMP", cpu_inst_cmp, addr_aby, 4};
+    instructions[0xC1] = (Instruction){"CMP", cpu_inst_cmp, addr_izx, 6};
+    instructions[0xD1] = (Instruction){"CMP", cpu_inst_cmp, addr_izy, 5};
+
     // BNE Instruction
     instructions[0xD0] = (Instruction){"BNE", cpu_inst_bne, addr_rel, 2};
 
