@@ -39,6 +39,9 @@ void init_instructions_table()
 
     // DEX Instruction
     instructions[0xCA] = (Instruction){"DEX", cpu_inst_dex, addr_impl, 2};
+
+    // INX Instruction
+    instructions[0xE8] = (Instruction){"INX", cpu_inst_inx, addr_impl, 2};
 }
 
 uint8_t addr_impl(CPU *cpu)

@@ -31,5 +31,6 @@ uint8_t cpu_inst_lda(CPU *cpu);
 uint8_t cpu_inst_ldx(CPU *cpu);
 uint8_t cpu_inst_sta(CPU *cpu);
 uint8_t cpu_inst_dex(CPU *cpu);
+uint8_t cpu_inst_inx(CPU *cpu);
 
 #endif // CPU_H
