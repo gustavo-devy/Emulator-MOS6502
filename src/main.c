@@ -16,7 +16,7 @@ int main()
     cpu.bus = &bus;
 
     init_instructions_table();
-    test_address_modes(&cpu);
+    test_lda_execution(&cpu);
 
     return 0;
 }

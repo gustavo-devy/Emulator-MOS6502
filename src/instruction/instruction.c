@@ -11,7 +11,17 @@ void init_instructions_table()
         instructions[i] = (Instruction){"???", NULL, NULL, 0}; // Default to an invalid instruction
     }
 
+    // LDA Instructions
     instructions[0xA9] = (Instruction){"LDA", cpu_inst_lda, addr_imm, 2};
+    instructions[0xA5] = (Instruction){"LDA", cpu_inst_lda, addr_zp, 3};
+    instructions[0xB5] = (Instruction){"LDA", cpu_inst_lda, addr_zpx, 4};
+    instructions[0xAD] = (Instruction){"LDA", cpu_inst_lda, addr_abs, 4};
+    instructions[0xBD] = (Instruction){"LDA", cpu_inst_lda, addr_abx, 4};
+    instructions[0xB9] = (Instruction){"LDA", cpu_inst_lda, addr_aby, 4};
+    instructions[0xA1] = (Instruction){"LDA", cpu_inst_lda, addr_izx, 6};
+    instructions[0xB1] = (Instruction){"LDA", cpu_inst_lda, addr_izy, 5};
+
+    // STA Instructions
     instructions[0x8D] = (Instruction){"STA", cpu_inst_sta, addr_abs, 4};
 }
 
