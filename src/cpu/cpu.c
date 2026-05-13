@@ -88,3 +88,10 @@ uint8_t cpu_inst_inx(CPU *cpu)
 
     return 0;
 }
+
+uint8_t cpu_inst_jmp(CPU *cpu)
+{
+    cpu->PC = cpu->addr_abs;
+
+    return 0;
+}
