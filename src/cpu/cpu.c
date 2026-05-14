@@ -213,3 +213,10 @@ uint8_t cpu_inst_clc(CPU *cpu)
 
     return 0;
 }
+
+uint8_t cpu_inst_sec(CPU *cpu)
+{
+    set_flag(cpu, C, true);
+
+    return 0;
+}

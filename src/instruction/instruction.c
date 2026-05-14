@@ -98,6 +98,9 @@ void init_instructions_table()
 
     // CLC Instruction
     instructions[0x18] = (Instruction){"CLC", cpu_inst_clc, addr_impl, 2};
+
+    // SEC Instruction
+    instructions[0x38] = (Instruction){"SEC", cpu_inst_sec, addr_impl, 2};
 }
 
 uint8_t addr_impl(CPU *cpu)
