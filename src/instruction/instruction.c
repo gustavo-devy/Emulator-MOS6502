@@ -95,6 +95,9 @@ void init_instructions_table()
     // JMP Instructions
     instructions[0x4C] = (Instruction){"JMP", cpu_inst_jmp, addr_abs, 3};
     instructions[0x6C] = (Instruction){"JMP", cpu_inst_jmp, addr_ind, 5};
+
+    // CLC Instruction
+    instructions[0x18] = (Instruction){"CLC", cpu_inst_clc, addr_impl, 2};
 }
 
 uint8_t addr_impl(CPU *cpu)

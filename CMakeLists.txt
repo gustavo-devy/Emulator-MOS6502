@@ -30,6 +30,7 @@ set(TEST_SOURCES
     tests/test_cpy_execution.c
     tests/test_dey_execution.c
     tests/test_iny_execution.c
+    tests/test_clc_execution.c
 )
 
 add_executable(Emulator-MOS6502

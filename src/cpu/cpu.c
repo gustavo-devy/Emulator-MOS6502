@@ -206,3 +206,10 @@ uint8_t cpu_inst_jmp(CPU *cpu)
 
     return 0;
 }
+
+uint8_t cpu_inst_clc(CPU *cpu)
+{
+    set_flag(cpu, C, false);
+
+    return 0;
+}

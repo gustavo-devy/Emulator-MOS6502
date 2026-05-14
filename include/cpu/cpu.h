@@ -43,5 +43,6 @@ uint8_t cpu_inst_cpy(CPU *cpu);
 uint8_t cpu_inst_bne(CPU *cpu);
 uint8_t cpu_inst_beq(CPU *cpu);
 uint8_t cpu_inst_jmp(CPU *cpu);
+uint8_t cpu_inst_clc(CPU *cpu);
 
 #endif // CPU_H
