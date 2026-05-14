@@ -14,6 +14,7 @@ void test_address_modes(CPU *cpu);
 void test_dex_execution(CPU *cpu);
 void test_inx_execution(CPU *cpu);
 void test_dey_execution(CPU *cpu);
+void test_iny_execution(CPU *cpu);
 void test_cmp_execution(CPU *cpu);
 void test_cpx_execution(CPU *cpu);
 void test_cpy_execution(CPU *cpu);
@@ -29,7 +30,7 @@ int main()
     cpu.bus = &bus;
 
     init_instructions_table();
-    test_dey_execution(&cpu);
+    test_iny_execution(&cpu);
 
     return 0;
 }

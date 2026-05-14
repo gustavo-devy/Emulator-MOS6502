@@ -124,6 +124,16 @@ uint8_t cpu_inst_dey(CPU *cpu)
     return 0;
 }
 
+uint8_t cpu_inst_iny(CPU *cpu)
+{
+    cpu->Y++;
+
+    set_flag(cpu, Z, cpu->Y == 0);
+    set_flag(cpu, N, cpu->Y & 0x80);
+
+    return 0;
+}
+
 uint8_t cpu_inst_cmp(CPU *cpu)
 {
     uint8_t value = bus_read(cpu->bus, cpu->addr_abs);

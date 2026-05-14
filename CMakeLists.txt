@@ -17,15 +17,6 @@ set(TEST_SOURCES
     tests/test_ldx_execution.c
     tests/test_sta_execution.c
     tests/test_address_modes.c
-)
-
-add_executable(Emulator-MOS6502
-    src/main.c
-    src/bus/bus.c
-    src/cpu/flags.c
-    src/cpu/cpu.c
-    src/instruction/instruction.c
-    ${TEST_SOURCES}
     tests/test_dex_execution.c
     tests/test_inx_execution.c
     tests/test_jmp_execution.c
@@ -38,6 +29,16 @@ add_executable(Emulator-MOS6502
     tests/test_cpx_execution.c
     tests/test_cpy_execution.c
     tests/test_dey_execution.c
+    tests/test_iny_execution.c
+)
+
+add_executable(Emulator-MOS6502
+    src/main.c
+    src/bus/bus.c
+    src/cpu/flags.c
+    src/cpu/cpu.c
+    src/instruction/instruction.c
+    ${TEST_SOURCES}
 )
 
 target_include_directories(
