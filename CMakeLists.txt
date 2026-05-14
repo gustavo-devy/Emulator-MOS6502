@@ -37,6 +37,7 @@ add_executable(Emulator-MOS6502
     tests/test_cmp_execution.c
     tests/test_cpx_execution.c
     tests/test_cpy_execution.c
+    tests/test_dey_execution.c
 )
 
 target_include_directories(

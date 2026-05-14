@@ -60,6 +60,9 @@ void init_instructions_table()
     // INX Instruction
     instructions[0xE8] = (Instruction){"INX", cpu_inst_inx, addr_impl, 2};
 
+    // DEY Instruction
+    instructions[0x88] = (Instruction){"DEY", cpu_inst_dey, addr_impl, 2};
+
     // CMP Instructions
     instructions[0xC9] = (Instruction){"CMP", cpu_inst_cmp, addr_imm, 2};
     instructions[0xC5] = (Instruction){"CMP", cpu_inst_cmp, addr_zp, 3};
