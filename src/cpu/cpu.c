@@ -134,6 +134,14 @@ uint8_t cpu_inst_iny(CPU *cpu)
     return 0;
 }
 
+uint8_t cpu_inst_pha(CPU *cpu)
+{
+    bus_write(cpu->bus, 0x0100 + cpu->SP, cpu->A);
+    cpu->SP--;
+
+    return 0;
+}
+
 uint8_t cpu_inst_cmp(CPU *cpu)
 {
     uint8_t value = bus_read(cpu->bus, cpu->addr_abs);

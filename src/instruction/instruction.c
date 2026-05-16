@@ -66,6 +66,9 @@ void init_instructions_table()
     // INY Instruction
     instructions[0xC8] = (Instruction){"INY", cpu_inst_iny, addr_impl, 2};
 
+    // PHA Instruction
+    instructions[0x48] = (Instruction){"PHA", cpu_inst_pha, addr_impl, 3};
+
     // CMP Instructions
     instructions[0xC9] = (Instruction){"CMP", cpu_inst_cmp, addr_imm, 2};
     instructions[0xC5] = (Instruction){"CMP", cpu_inst_cmp, addr_zp, 3};
