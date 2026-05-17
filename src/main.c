@@ -16,6 +16,7 @@ void test_inx_execution(CPU *cpu);
 void test_dey_execution(CPU *cpu);
 void test_iny_execution(CPU *cpu);
 void test_pha_execution(CPU *cpu);
+void test_pla_execution(CPU *cpu);
 void test_cmp_execution(CPU *cpu);
 void test_cpx_execution(CPU *cpu);
 void test_cpy_execution(CPU *cpu);
@@ -33,7 +34,7 @@ int main()
     cpu.bus = &bus;
 
     init_instructions_table();
-    test_pha_execution(&cpu);
+    test_pla_execution(&cpu);
 
     return 0;
 }

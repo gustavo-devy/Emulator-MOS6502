@@ -142,6 +142,17 @@ uint8_t cpu_inst_pha(CPU *cpu)
     return 0;
 }
 
+uint8_t cpu_inst_pla(CPU *cpu)
+{
+    cpu->SP++;
+    cpu->A = bus_read(cpu->bus, 0x0100 + cpu->SP);
+
+    set_flag(cpu, Z, cpu->A == 0);
+    set_flag(cpu, N, cpu->A & 0x80);
+
+    return 0;
+}
+
 uint8_t cpu_inst_cmp(CPU *cpu)
 {
     uint8_t value = bus_read(cpu->bus, cpu->addr_abs);
