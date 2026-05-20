@@ -219,6 +219,20 @@ uint8_t cpu_inst_beq(CPU *cpu)
     return 0; // Branch not taken
 }
 
+uint8_t cpu_inst_jsr(CPU *cpu)
+{
+    uint16_t return_addr = cpu->PC - 1;
+
+    bus_write(cpu->bus, 0x0100 + cpu->SP, (return_addr >> 8) & 0xFF);
+    cpu->SP--;
+    bus_write(cpu->bus, 0x0100 + cpu->SP, return_addr & 0xFF);
+    cpu->SP--;
+
+    cpu->PC = cpu->addr_abs;
+
+    return 0;
+}
+
 uint8_t cpu_inst_jmp(CPU *cpu)
 {
     cpu->PC = cpu->addr_abs;

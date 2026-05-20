@@ -98,6 +98,9 @@ void init_instructions_table()
     // BEQ Instruction
     instructions[0xF0] = (Instruction){"BEQ", cpu_inst_beq, addr_rel, 2};
 
+    // JRS
+    instructions[0x20] = (Instruction){"JSR", cpu_inst_jsr, addr_abs, 6};
+
     // JMP Instructions
     instructions[0x4C] = (Instruction){"JMP", cpu_inst_jmp, addr_abs, 3};
     instructions[0x6C] = (Instruction){"JMP", cpu_inst_jmp, addr_ind, 5};
