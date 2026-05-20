@@ -35,6 +35,7 @@ set(TEST_SOURCES
     tests/test_pha_execution.c
     tests/test_pla_execution.c
     tests/test_jsr_execution.c
+    tests/test_rts_execution.c
 )
 
 add_executable(Emulator-MOS6502

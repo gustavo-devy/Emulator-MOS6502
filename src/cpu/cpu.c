@@ -29,7 +29,7 @@ void cpu_step(CPU *cpu)
         // Execute the instruction
         Instruction inst = instructions[cpu->opcode];
 
-        cpu->cycles = inst.cycles; // Set the cycles for the instruction
+        cpu->cycles = inst.cycles;
 
         uint8_t c1 = inst.addrmode(cpu);
         uint8_t c2 = inst.operate(cpu);
@@ -229,6 +229,23 @@ uint8_t cpu_inst_jsr(CPU *cpu)
     cpu->SP--;
 
     cpu->PC = cpu->addr_abs;
+
+    return 0;
+}
+
+uint8_t cpu_inst_rts(CPU *cpu)
+{
+    uint16_t low_byte, high_byte;
+
+    cpu->SP++;
+    low_byte = bus_read(cpu->bus, 0x0100 + cpu->SP);
+
+    cpu->SP++;
+    high_byte = bus_read(cpu->bus, 0x0100 + cpu->SP);
+
+    uint16_t return_addr = (high_byte << 8) | low_byte;
+
+    cpu->PC = return_addr + 1;
 
     return 0;
 }

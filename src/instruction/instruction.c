@@ -101,6 +101,9 @@ void init_instructions_table()
     // JRS
     instructions[0x20] = (Instruction){"JSR", cpu_inst_jsr, addr_abs, 6};
 
+    // RTS
+    instructions[0x60] = (Instruction){"RTS", cpu_inst_rts, addr_impl, 6};
+
     // JMP Instructions
     instructions[0x4C] = (Instruction){"JMP", cpu_inst_jmp, addr_abs, 3};
     instructions[0x6C] = (Instruction){"JMP", cpu_inst_jmp, addr_ind, 5};
