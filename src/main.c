@@ -31,6 +31,7 @@ void test_and_execution(CPU *cpu);
 void test_ora_execution(CPU *cpu);
 void test_eor_execution(CPU *cpu);
 void test_bit_execution(CPU *cpu);
+void test_inc_dec_execution(CPU *cpu);
 
 int main()
 {
@@ -40,7 +41,7 @@ int main()
     cpu.bus = &bus;
 
     init_instructions_table();
-    test_bit_execution(&cpu);
+    test_inc_dec_execution(&cpu);
 
     return 0;
 }

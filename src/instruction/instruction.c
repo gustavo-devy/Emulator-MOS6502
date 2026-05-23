@@ -66,6 +66,18 @@ void init_instructions_table()
     // INY Instruction
     instructions[0xC8] = (Instruction){"INY", cpu_inst_iny, addr_impl, 2};
 
+    // INC Instructions
+    instructions[0xE6] = (Instruction){"INC", cpu_inst_inc, addr_zp, 5};
+    instructions[0xF6] = (Instruction){"INC", cpu_inst_inc, addr_zpx, 6};
+    instructions[0xEE] = (Instruction){"INC", cpu_inst_inc, addr_abs, 6};
+    instructions[0xFE] = (Instruction){"INC", cpu_inst_inc, addr_abx, 7};
+
+    // DEC Instructions
+    instructions[0xC6] = (Instruction){"DEC", cpu_inst_dec, addr_zp, 5};
+    instructions[0xD6] = (Instruction){"DEC", cpu_inst_dec, addr_zpx, 6};
+    instructions[0xCE] = (Instruction){"DEC", cpu_inst_dec, addr_abs, 6};
+    instructions[0xDE] = (Instruction){"DEC", cpu_inst_dec, addr_abx, 7};
+
     // PHA Instruction
     instructions[0x48] = (Instruction){"PHA", cpu_inst_pha, addr_impl, 3};
 
