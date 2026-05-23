@@ -39,6 +39,7 @@ set(TEST_SOURCES
     tests/tests_and_modes.c
     tests/test_ora_execution.c
     tests/test_eor_execution.c
+    tests/test_bit_execution.c
 )
 
 add_executable(Emulator-MOS6502

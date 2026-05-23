@@ -143,6 +143,10 @@ void init_instructions_table()
     instructions[0x59] = (Instruction){"EOR", cpu_inst_eor, addr_aby, 4};
     instructions[0x41] = (Instruction){"EOR", cpu_inst_eor, addr_izx, 6};
     instructions[0x51] = (Instruction){"EOR", cpu_inst_eor, addr_izy, 5};
+
+    // BIT Instructions
+    instructions[0x24] = (Instruction){"BIT", cpu_inst_bit, addr_zp, 3};
+    instructions[0x2C] = (Instruction){"BIT", cpu_inst_bit, addr_abs, 4};
 }
 
 uint8_t addr_impl(CPU *cpu)

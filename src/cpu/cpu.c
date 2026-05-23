@@ -303,3 +303,15 @@ uint8_t cpu_inst_eor(CPU *cpu)
 
     return 1;
 }
+
+uint8_t cpu_inst_bit(CPU *cpu)
+{
+    uint8_t value = bus_read(cpu->bus, cpu->addr_abs);
+    uint8_t result = cpu->A & value;
+
+    set_flag(cpu, Z, result == 0);
+    set_flag(cpu, N, value & 0x80);
+    set_flag(cpu, V, value & 0x40);
+
+    return 0;
+}
