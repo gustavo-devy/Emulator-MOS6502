@@ -28,6 +28,7 @@ void test_jmp_execution(CPU *cpu);
 void test_clc_execution(CPU *cpu);
 void test_sec_execution(CPU *cpu);
 void test_and_execution(CPU *cpu);
+void test_ora_execution(CPU *cpu);
 
 int main()
 {
@@ -37,7 +38,7 @@ int main()
     cpu.bus = &bus;
 
     init_instructions_table();
-    test_and_execution(&cpu);
+    test_ora_execution(&cpu);
 
     return 0;
 }

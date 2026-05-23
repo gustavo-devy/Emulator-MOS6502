@@ -123,6 +123,16 @@ void init_instructions_table()
     instructions[0x39] = (Instruction){"AND", cpu_inst_and, addr_aby, 4};
     instructions[0x21] = (Instruction){"AND", cpu_inst_and, addr_izx, 6};
     instructions[0x31] = (Instruction){"AND", cpu_inst_and, addr_izy, 5};
+
+    // ORA Instructions
+    instructions[0x09] = (Instruction){"ORA", cpu_inst_ora, addr_imm, 2};
+    instructions[0x05] = (Instruction){"ORA", cpu_inst_ora, addr_zp, 3};
+    instructions[0x15] = (Instruction){"ORA", cpu_inst_ora, addr_zpx, 4};
+    instructions[0x0D] = (Instruction){"ORA", cpu_inst_ora, addr_abs, 4};
+    instructions[0x1D] = (Instruction){"ORA", cpu_inst_ora, addr_abx, 4};
+    instructions[0x19] = (Instruction){"ORA", cpu_inst_ora, addr_aby, 4};
+    instructions[0x01] = (Instruction){"ORA", cpu_inst_ora, addr_izx, 6};
+    instructions[0x11] = (Instruction){"ORA", cpu_inst_ora, addr_izy, 5};
 }
 
 uint8_t addr_impl(CPU *cpu)
