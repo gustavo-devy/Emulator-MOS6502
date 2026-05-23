@@ -113,6 +113,16 @@ void init_instructions_table()
 
     // SEC Instruction
     instructions[0x38] = (Instruction){"SEC", cpu_inst_sec, addr_impl, 2};
+
+    // AND Instructions
+    instructions[0x29] = (Instruction){"AND", cpu_inst_and, addr_imm, 2};
+    instructions[0x25] = (Instruction){"AND", cpu_inst_and, addr_zp, 3};
+    instructions[0x35] = (Instruction){"AND", cpu_inst_and, addr_zpx, 4};
+    instructions[0x2D] = (Instruction){"AND", cpu_inst_and, addr_abs, 4};
+    instructions[0x3D] = (Instruction){"AND", cpu_inst_and, addr_abx, 4};
+    instructions[0x39] = (Instruction){"AND", cpu_inst_and, addr_aby, 4};
+    instructions[0x21] = (Instruction){"AND", cpu_inst_and, addr_izx, 6};
+    instructions[0x31] = (Instruction){"AND", cpu_inst_and, addr_izy, 5};
 }
 
 uint8_t addr_impl(CPU *cpu)

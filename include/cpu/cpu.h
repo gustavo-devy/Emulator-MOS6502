@@ -49,5 +49,6 @@ uint8_t cpu_inst_rts(CPU *cpu);
 uint8_t cpu_inst_jmp(CPU *cpu);
 uint8_t cpu_inst_clc(CPU *cpu);
 uint8_t cpu_inst_sec(CPU *cpu);
+uint8_t cpu_inst_and(CPU *cpu);
 
 #endif // CPU_H
