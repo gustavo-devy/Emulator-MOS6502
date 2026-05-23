@@ -133,6 +133,16 @@ void init_instructions_table()
     instructions[0x19] = (Instruction){"ORA", cpu_inst_ora, addr_aby, 4};
     instructions[0x01] = (Instruction){"ORA", cpu_inst_ora, addr_izx, 6};
     instructions[0x11] = (Instruction){"ORA", cpu_inst_ora, addr_izy, 5};
+
+    // EOR Instructions
+    instructions[0x49] = (Instruction){"EOR", cpu_inst_eor, addr_imm, 2};
+    instructions[0x45] = (Instruction){"EOR", cpu_inst_eor, addr_zp, 3};
+    instructions[0x55] = (Instruction){"EOR", cpu_inst_eor, addr_zpx, 4};
+    instructions[0x4D] = (Instruction){"EOR", cpu_inst_eor, addr_abs, 4};
+    instructions[0x5D] = (Instruction){"EOR", cpu_inst_eor, addr_abx, 4};
+    instructions[0x59] = (Instruction){"EOR", cpu_inst_eor, addr_aby, 4};
+    instructions[0x41] = (Instruction){"EOR", cpu_inst_eor, addr_izx, 6};
+    instructions[0x51] = (Instruction){"EOR", cpu_inst_eor, addr_izy, 5};
 }
 
 uint8_t addr_impl(CPU *cpu)

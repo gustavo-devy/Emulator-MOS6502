@@ -292,3 +292,14 @@ uint8_t cpu_inst_ora(CPU *cpu)
 
     return 1;
 }
+
+uint8_t cpu_inst_eor(CPU *cpu)
+{
+    uint8_t value = bus_read(cpu->bus, cpu->addr_abs);
+    cpu->A = (cpu->A ^ value);
+
+    set_flag(cpu, Z, cpu->A == 0);
+    set_flag(cpu, N, cpu->A & 0x80);
+
+    return 1;
+}
