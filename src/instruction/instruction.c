@@ -8,7 +8,7 @@ void init_instructions_table()
 {
     for (int i = 0; i < 256; i++)
     {
-        instructions[i] = (Instruction){"???", NULL, NULL, 0}; // Default to an invalid instruction
+        instructions[i] = (Instruction){"???", NULL, NULL, 2};
     }
 
     // LDA Instructions
@@ -179,6 +179,9 @@ void init_instructions_table()
     // BIT Instructions
     instructions[0x24] = (Instruction){"BIT", cpu_inst_bit, addr_zp, 3};
     instructions[0x2C] = (Instruction){"BIT", cpu_inst_bit, addr_abs, 4};
+
+    // NOP Instructions
+    instructions[0xEA] = (Instruction){"NOP", cpu_inst_nop, addr_impl, 2};
 }
 
 uint8_t addr_impl(CPU *cpu)

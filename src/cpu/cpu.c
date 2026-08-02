@@ -372,3 +372,10 @@ uint8_t cpu_inst_bit(CPU *cpu)
 
     return 0;
 }
+
+uint8_t cpu_inst_nop(CPU *cpu)
+{
+    (void)cpu; // NOP does nothing
+
+    return 0;
+}

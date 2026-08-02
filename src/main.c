@@ -40,10 +40,25 @@ int main()
     CPU cpu = {0};
     Bus bus = {0};
 
+    bus_init(&bus);
     cpu.bus = &bus;
 
     init_instructions_table();
-    test_sbc_execution(&cpu);
+
+    // Simple test NOP instruction to verify CPU and Bus integration
+    bus_write(cpu.bus, 0xFFFC, 0x00); // Reset vector low byte
+    bus_write(cpu.bus, 0xFFFD, 0x80); // Reset vector high byte
+    cpu_reset(&cpu);
+
+    for (int i = 0; i < 64; i++) // Execute 64 cycles of NOPs
+    {
+        do
+        {
+            cpu_step(&cpu);
+        } while (cpu.cycles > 0);
+    }
+
+    printf("Total cycles executed: %u\n", cpu.total_cycles);
 
     return 0;
 }
