@@ -94,6 +94,39 @@ uint8_t cpu_inst_sty(CPU *cpu)
     return 0;
 }
 
+uint8_t cpu_inst_adc(CPU *cpu)
+{
+    uint8_t data = bus_read(cpu->bus, cpu->addr_abs);
+    uint16_t temp = (uint16_t)cpu->A + (uint16_t)data + (uint16_t)get_flag(cpu, C);
+
+    set_flag(cpu, C, temp > 255);
+    set_flag(cpu, Z, (temp & 0x00FF) == 0);
+    set_flag(cpu, N, temp & 0x80);
+
+    set_flag(cpu, V, (~((uint16_t)cpu->A ^ (uint16_t)data) & ((uint16_t)cpu->A ^ (uint16_t)temp)) & 0x0080);
+
+    cpu->A = temp & 0x00FF;
+
+    return 1;
+}
+
+uint8_t cpu_inst_sbc(CPU *cpu)
+{
+    uint8_t data = bus_read(cpu->bus, cpu->addr_abs);
+    uint16_t value = ((uint16_t)data) ^ 0x00FF;
+
+    uint16_t temp = (uint16_t)cpu->A + value + (uint16_t)get_flag(cpu, C);
+
+    set_flag(cpu, C, temp & 0xFF00);
+    set_flag(cpu, Z, (temp & 0x00FF) == 0);
+    set_flag(cpu, N, temp & 0x80);
+    set_flag(cpu, V, ((temp ^ (uint16_t)cpu->A) & (temp ^ value)) & 0x0080);
+
+    cpu->A = temp & 0x00FF;
+
+    return 1;
+}
+
 uint8_t cpu_inst_dex(CPU *cpu)
 {
     cpu->X--;

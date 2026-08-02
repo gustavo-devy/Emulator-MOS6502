@@ -11,6 +11,8 @@ void test_ldy_execution(CPU *cpu);
 void test_sta_execution(CPU *cpu);
 void test_stx_execution(CPU *cpu);
 void test_sty_execution(CPU *cpu);
+void test_adc_execution(CPU *cpu);
+void test_sbc_execution(CPU *cpu);
 void test_dex_execution(CPU *cpu);
 void test_inx_execution(CPU *cpu);
 void test_dey_execution(CPU *cpu);
@@ -41,7 +43,7 @@ int main()
     cpu.bus = &bus;
 
     init_instructions_table();
-    test_inc_dec_execution(&cpu);
+    test_sbc_execution(&cpu);
 
     return 0;
 }

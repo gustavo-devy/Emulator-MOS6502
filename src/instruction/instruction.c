@@ -54,6 +54,26 @@ void init_instructions_table()
     instructions[0x94] = (Instruction){"STY", cpu_inst_sty, addr_zpx, 4};
     instructions[0x8C] = (Instruction){"STY", cpu_inst_sty, addr_abs, 4};
 
+    // ADC Instructions
+    instructions[0x69] = (Instruction){"ADC", cpu_inst_adc, addr_imm, 2};
+    instructions[0x65] = (Instruction){"ADC", cpu_inst_adc, addr_zp, 3};
+    instructions[0x75] = (Instruction){"ADC", cpu_inst_adc, addr_zpx, 4};
+    instructions[0x6D] = (Instruction){"ADC", cpu_inst_adc, addr_abs, 4};
+    instructions[0x7D] = (Instruction){"ADC", cpu_inst_adc, addr_abx, 4};
+    instructions[0x79] = (Instruction){"ADC", cpu_inst_adc, addr_aby, 4};
+    instructions[0x61] = (Instruction){"ADC", cpu_inst_adc, addr_izx, 6};
+    instructions[0x71] = (Instruction){"ADC", cpu_inst_adc, addr_izy, 5};
+
+    // SBC Instructions
+    instructions[0xE9] = (Instruction){"SBC", cpu_inst_sbc, addr_imm, 2};
+    instructions[0xE5] = (Instruction){"SBC", cpu_inst_sbc, addr_zp, 3};
+    instructions[0xF5] = (Instruction){"SBC", cpu_inst_sbc, addr_zpx, 4};
+    instructions[0xED] = (Instruction){"SBC", cpu_inst_sbc, addr_abs, 4};
+    instructions[0xFD] = (Instruction){"SBC", cpu_inst_sbc, addr_abx, 4};
+    instructions[0xF9] = (Instruction){"SBC", cpu_inst_sbc, addr_aby, 4};
+    instructions[0xE1] = (Instruction){"SBC", cpu_inst_sbc, addr_izx, 6};
+    instructions[0xF1] = (Instruction){"SBC", cpu_inst_sbc, addr_izy, 5};
+
     // DEX Instruction
     instructions[0xCA] = (Instruction){"DEX", cpu_inst_dex, addr_impl, 2};
 
@@ -163,7 +183,7 @@ void init_instructions_table()
 
 uint8_t addr_impl(CPU *cpu)
 {
-    (void)cpu; // Unused parameter
+    (void)cpu;
     // Implied addressing mode does not require any additional data
     return 0;
 }

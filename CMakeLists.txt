@@ -10,7 +10,6 @@ else()
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Werror")
 endif()
 
-# Path to the source files
 set(TEST_SOURCES
     tests/test_cpu_reset.c
     tests/test_lda_execution.c
@@ -28,6 +27,8 @@ set(TEST_SOURCES
     tests/test_cmp_execution.c
     tests/test_cpx_execution.c
     tests/test_cpy_execution.c
+    tests/test_adc_execution.c
+    tests/test_sbc_execution.c
     tests/test_dey_execution.c
     tests/test_iny_execution.c
     tests/test_clc_execution.c
