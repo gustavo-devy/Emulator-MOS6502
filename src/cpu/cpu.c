@@ -104,6 +104,26 @@ uint8_t cpu_inst_tax(CPU *cpu)
     return 0;
 }
 
+uint8_t cpu_inst_tay(CPU *cpu)
+{
+    cpu->Y = cpu->A;
+
+    set_flag(cpu, Z, cpu->Y == 0);
+    set_flag(cpu, N, cpu->Y & 0x80);
+
+    return 0;
+}
+
+uint8_t cpu_inst_tya(CPU *cpu)
+{
+    cpu->A = cpu->Y;
+
+    set_flag(cpu, Z, cpu->A == 0);
+    set_flag(cpu, N, cpu->A & 0x80);
+
+    return 0;
+}
+
 uint8_t cpu_inst_txa(CPU *cpu)
 {
     cpu->A = cpu->X;

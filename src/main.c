@@ -13,6 +13,8 @@ void test_stx_execution(CPU *cpu);
 void test_sty_execution(CPU *cpu);
 void test_tax_execution(CPU *cpu);
 void test_txa_execution(CPU *cpu);
+void test_tay_execution(CPU *cpu);
+void test_tya_execution(CPU *cpu);
 void test_adc_execution(CPU *cpu);
 void test_sbc_execution(CPU *cpu);
 void test_dex_execution(CPU *cpu);
@@ -46,6 +48,8 @@ int main()
     cpu.bus = &bus;
 
     init_instructions_table();
+
+    test_tya_execution(&cpu);
 
     return 0;
 }

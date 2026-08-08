@@ -60,6 +60,12 @@ void init_instructions_table()
     // TXA Instruction
     instructions[0x8A] = (Instruction){"TXA", cpu_inst_txa, addr_impl, 2};
 
+    // TAY Instruction
+    instructions[0xA8] = (Instruction){"TAY", cpu_inst_tay, addr_impl, 2};
+
+    // TYA Instruction
+    instructions[0x98] = (Instruction){"TYA", cpu_inst_tya, addr_impl, 2};
+
     // ADC Instructions
     instructions[0x69] = (Instruction){"ADC", cpu_inst_adc, addr_imm, 2};
     instructions[0x65] = (Instruction){"ADC", cpu_inst_adc, addr_zp, 3};
