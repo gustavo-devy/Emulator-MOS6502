@@ -54,6 +54,12 @@ void init_instructions_table()
     instructions[0x94] = (Instruction){"STY", cpu_inst_sty, addr_zpx, 4};
     instructions[0x8C] = (Instruction){"STY", cpu_inst_sty, addr_abs, 4};
 
+    // TAX Instruction
+    instructions[0xAA] = (Instruction){"TAX", cpu_inst_tax, addr_impl, 2};
+
+    // TXA Instruction
+    instructions[0x8A] = (Instruction){"TXA", cpu_inst_txa, addr_impl, 2};
+
     // ADC Instructions
     instructions[0x69] = (Instruction){"ADC", cpu_inst_adc, addr_imm, 2};
     instructions[0x65] = (Instruction){"ADC", cpu_inst_adc, addr_zp, 3};

@@ -94,6 +94,26 @@ uint8_t cpu_inst_sty(CPU *cpu)
     return 0;
 }
 
+uint8_t cpu_inst_tax(CPU *cpu)
+{
+    cpu->X = cpu->A;
+
+    set_flag(cpu, Z, cpu->X == 0);
+    set_flag(cpu, N, cpu->X & 0x80);
+
+    return 0;
+}
+
+uint8_t cpu_inst_txa(CPU *cpu)
+{
+    cpu->A = cpu->X;
+
+    set_flag(cpu, Z, cpu->A == 0);
+    set_flag(cpu, N, cpu->A & 0x80);
+
+    return 0;
+}
+
 uint8_t cpu_inst_adc(CPU *cpu)
 {
     uint8_t data = bus_read(cpu->bus, cpu->addr_abs);
