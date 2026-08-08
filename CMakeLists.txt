@@ -46,6 +46,8 @@ set(TEST_SOURCES
     tests/test_txa_execution.c
     tests/test_tay_execution.c
     tests/test_tya_execution.c
+    tests/test_tsx_execution.c
+    tests/test_txs_execution.c
 )
 
 add_executable(Emulator-MOS6502

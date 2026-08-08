@@ -37,6 +37,8 @@ uint8_t cpu_inst_tax(CPU *cpu);
 uint8_t cpu_inst_txa(CPU *cpu);
 uint8_t cpu_inst_tay(CPU *cpu);
 uint8_t cpu_inst_tya(CPU *cpu);
+uint8_t cpu_inst_tsx(CPU *cpu);
+uint8_t cpu_inst_txs(CPU *cpu);
 uint8_t cpu_inst_adc(CPU *cpu);
 uint8_t cpu_inst_sbc(CPU *cpu);
 uint8_t cpu_inst_dex(CPU *cpu);

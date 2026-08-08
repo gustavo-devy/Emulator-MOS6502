@@ -15,6 +15,8 @@ void test_tax_execution(CPU *cpu);
 void test_txa_execution(CPU *cpu);
 void test_tay_execution(CPU *cpu);
 void test_tya_execution(CPU *cpu);
+void test_tsx_execution(CPU *cpu);
+void test_txs_execution(CPU *cpu);
 void test_adc_execution(CPU *cpu);
 void test_sbc_execution(CPU *cpu);
 void test_dex_execution(CPU *cpu);
@@ -49,7 +51,8 @@ int main()
 
     init_instructions_table();
 
-    test_tya_execution(&cpu);
+    test_tsx_execution(&cpu);
+    test_txs_execution(&cpu);
 
     return 0;
 }
