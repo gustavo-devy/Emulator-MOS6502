@@ -25,6 +25,8 @@ void test_dey_execution(CPU *cpu);
 void test_iny_execution(CPU *cpu);
 void test_pha_execution(CPU *cpu);
 void test_pla_execution(CPU *cpu);
+void test_php_execution(CPU *cpu);
+void test_plp_execution(CPU *cpu);
 void test_cmp_execution(CPU *cpu);
 void test_cpx_execution(CPU *cpu);
 void test_cpy_execution(CPU *cpu);
@@ -51,8 +53,8 @@ int main()
 
     init_instructions_table();
 
-    test_tsx_execution(&cpu);
-    test_txs_execution(&cpu);
+    test_php_execution(&cpu);
+    test_plp_execution(&cpu);
 
     return 0;
 }

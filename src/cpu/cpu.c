@@ -267,6 +267,24 @@ uint8_t cpu_inst_pla(CPU *cpu)
     return 0;
 }
 
+uint8_t cpu_inst_php(CPU *cpu)
+{
+    uint8_t status = cpu->P | U; // Set the unused flag before pushing
+    bus_write(cpu->bus, 0x0100 + cpu->SP, status);
+    cpu->SP--;
+
+    return 0;
+}
+
+uint8_t cpu_inst_plp(CPU *cpu)
+{
+    cpu->SP++;
+    cpu->P = bus_read(cpu->bus, 0x0100 + cpu->SP);
+    cpu->P |= U; // Ensure the unused flag is always set
+
+    return 0;
+}
+
 uint8_t cpu_inst_cmp(CPU *cpu)
 {
     uint8_t value = bus_read(cpu->bus, cpu->addr_abs);

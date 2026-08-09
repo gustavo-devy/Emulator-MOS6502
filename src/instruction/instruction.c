@@ -122,6 +122,12 @@ void init_instructions_table()
     // PLA Instruction
     instructions[0x68] = (Instruction){"PLA", cpu_inst_pla, addr_impl, 4};
 
+    // PHP Instruction
+    instructions[0x08] = (Instruction){"PHP", cpu_inst_php, addr_impl, 3};
+
+    // PLP Instruction
+    instructions[0x28] = (Instruction){"PLP", cpu_inst_plp, addr_impl, 4};
+
     // CMP Instructions
     instructions[0xC9] = (Instruction){"CMP", cpu_inst_cmp, addr_imm, 2};
     instructions[0xC5] = (Instruction){"CMP", cpu_inst_cmp, addr_zp, 3};

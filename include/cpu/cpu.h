@@ -49,6 +49,8 @@ uint8_t cpu_inst_dey(CPU *cpu);
 uint8_t cpu_inst_iny(CPU *cpu);
 uint8_t cpu_inst_pha(CPU *cpu);
 uint8_t cpu_inst_pla(CPU *cpu);
+uint8_t cpu_inst_php(CPU *cpu);
+uint8_t cpu_inst_plp(CPU *cpu);
 uint8_t cpu_inst_cmp(CPU *cpu);
 uint8_t cpu_inst_cpx(CPU *cpu);
 uint8_t cpu_inst_cpy(CPU *cpu);
