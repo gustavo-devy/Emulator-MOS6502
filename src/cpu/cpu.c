@@ -486,6 +486,52 @@ uint8_t cpu_inst_lsr(CPU *cpu)
     return 0;
 }
 
+uint8_t cpu_inst_rol(CPU *cpu)
+{
+    uint8_t value = cpu->opcode == 0x2A
+                        ? cpu->A
+                        : bus_read(cpu->bus, cpu->addr_abs);
+    bool carry_in = get_flag(cpu, C);
+    set_flag(cpu, C, value & 0x80); // Set carry flag if bit 7 is set
+    value <<= 1;                    // Shift left
+
+    if (carry_in)
+        value |= 0x01; // Set bit 0 if carry was set
+
+    if (cpu->opcode == 0x2A)
+        cpu->A = value;
+    else
+        bus_write(cpu->bus, cpu->addr_abs, value);
+
+    set_flag(cpu, Z, value == 0);
+    set_flag(cpu, N, value & 0x80);
+
+    return 0;
+}
+
+uint8_t cpu_inst_ror(CPU *cpu)
+{
+    uint8_t value = cpu->opcode == 0x6A
+                        ? cpu->A
+                        : bus_read(cpu->bus, cpu->addr_abs);
+    bool carry_in = get_flag(cpu, C);
+    set_flag(cpu, C, value & 0x01); // Set carry flag if bit 0 is set
+    value >>= 1;                    // Shift right
+
+    if (carry_in)
+        value |= 0x80; // Set bit 7 if carry was set
+
+    if (cpu->opcode == 0x6A)
+        cpu->A = value;
+    else
+        bus_write(cpu->bus, cpu->addr_abs, value);
+
+    set_flag(cpu, Z, value == 0);
+    set_flag(cpu, N, value & 0x80);
+
+    return 0;
+}
+
 uint8_t cpu_inst_nop(CPU *cpu)
 {
     (void)cpu; // NOP does nothing

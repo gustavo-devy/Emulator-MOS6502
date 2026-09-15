@@ -218,6 +218,20 @@ void init_instructions_table()
     instructions[0x4E] = (Instruction){"LSR", cpu_inst_lsr, addr_abs, 6};
     instructions[0x5E] = (Instruction){"LSR", cpu_inst_lsr, addr_abx, 7};
 
+    // ROL Instructions
+    instructions[0x2A] = (Instruction){"ROL", cpu_inst_rol, addr_impl, 2};
+    instructions[0x26] = (Instruction){"ROL", cpu_inst_rol, addr_zp, 5};
+    instructions[0x36] = (Instruction){"ROL", cpu_inst_rol, addr_zpx, 6};
+    instructions[0x2E] = (Instruction){"ROL", cpu_inst_rol, addr_abs, 6};
+    instructions[0x3E] = (Instruction){"ROL", cpu_inst_rol, addr_abx, 7};
+
+    // ROR Instructions
+    instructions[0x6A] = (Instruction){"ROR", cpu_inst_ror, addr_impl, 2};
+    instructions[0x66] = (Instruction){"ROR", cpu_inst_ror, addr_zp, 5};
+    instructions[0x76] = (Instruction){"ROR", cpu_inst_ror, addr_zpx, 6};
+    instructions[0x6E] = (Instruction){"ROR", cpu_inst_ror, addr_abs, 6};
+    instructions[0x7E] = (Instruction){"ROR", cpu_inst_ror, addr_abx, 7};
+
     // NOP Instructions
     instructions[0xEA] = (Instruction){"NOP", cpu_inst_nop, addr_impl, 2};
 }

@@ -43,6 +43,8 @@ void test_eor_execution(CPU *cpu);
 void test_bit_execution(CPU *cpu);
 void test_asl_execution(CPU *cpu);
 void test_lsr_execution(CPU *cpu);
+void test_rol_execution(CPU *cpu);
+void test_ror_execution(CPU *cpu);
 void test_inc_dec_execution(CPU *cpu);
 
 int main()
@@ -54,7 +56,7 @@ int main()
     cpu.bus = &bus;
 
     init_instructions_table();
-    test_lsr_execution(&cpu);
+    test_ror_execution(&cpu);
 
     return 0;
 }
