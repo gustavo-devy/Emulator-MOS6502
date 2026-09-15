@@ -65,6 +65,8 @@ uint8_t cpu_inst_and(CPU *cpu);
 uint8_t cpu_inst_ora(CPU *cpu);
 uint8_t cpu_inst_eor(CPU *cpu);
 uint8_t cpu_inst_bit(CPU *cpu);
+uint8_t cpu_inst_asl(CPU *cpu);
+uint8_t cpu_inst_lsr(CPU *cpu);
 uint8_t cpu_inst_nop(CPU *cpu);
 
 #endif // CPU_H

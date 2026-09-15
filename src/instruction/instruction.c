@@ -204,6 +204,20 @@ void init_instructions_table()
     instructions[0x24] = (Instruction){"BIT", cpu_inst_bit, addr_zp, 3};
     instructions[0x2C] = (Instruction){"BIT", cpu_inst_bit, addr_abs, 4};
 
+    // ASL Instructions
+    instructions[0x0A] = (Instruction){"ASL", cpu_inst_asl, addr_impl, 2};
+    instructions[0x06] = (Instruction){"ASL", cpu_inst_asl, addr_zp, 5};
+    instructions[0x16] = (Instruction){"ASL", cpu_inst_asl, addr_zpx, 6};
+    instructions[0x0E] = (Instruction){"ASL", cpu_inst_asl, addr_abs, 6};
+    instructions[0x1E] = (Instruction){"ASL", cpu_inst_asl, addr_abx, 7};
+
+    // LSR Instructions
+    instructions[0x4A] = (Instruction){"LSR", cpu_inst_lsr, addr_impl, 2};
+    instructions[0x46] = (Instruction){"LSR", cpu_inst_lsr, addr_zp, 5};
+    instructions[0x56] = (Instruction){"LSR", cpu_inst_lsr, addr_zpx, 6};
+    instructions[0x4E] = (Instruction){"LSR", cpu_inst_lsr, addr_abs, 6};
+    instructions[0x5E] = (Instruction){"LSR", cpu_inst_lsr, addr_abx, 7};
+
     // NOP Instructions
     instructions[0xEA] = (Instruction){"NOP", cpu_inst_nop, addr_impl, 2};
 }

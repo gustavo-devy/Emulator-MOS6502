@@ -50,6 +50,8 @@ set(TEST_SOURCES
     tests/test_txs_execution.c
     tests/test_php_execution.c
     tests/test_plp_execution.c
+    tests/test_asl_execution.c
+    tests/test_lsr_execution.c
 )
 
 add_executable(Emulator-MOS6502
