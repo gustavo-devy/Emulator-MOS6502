@@ -36,7 +36,9 @@ void test_jsr_execution(CPU *cpu);
 void test_rts_execution(CPU *cpu);
 void test_jmp_execution(CPU *cpu);
 void test_clc_execution(CPU *cpu);
+void test_cli_execution(CPU *cpu);
 void test_sec_execution(CPU *cpu);
+void test_sei_execution(CPU *cpu);
 void test_and_execution(CPU *cpu);
 void test_ora_execution(CPU *cpu);
 void test_eor_execution(CPU *cpu);
@@ -56,7 +58,7 @@ int main()
     cpu.bus = &bus;
 
     init_instructions_table();
-    test_ror_execution(&cpu);
+    test_sei_execution(&cpu);
 
     return 0;
 }
