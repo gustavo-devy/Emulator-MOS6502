@@ -173,6 +173,9 @@ void init_instructions_table()
     // CLD Instruction
     instructions[0xD8] = (Instruction){"CLD", cpu_inst_cld, addr_impl, 2};
 
+    // CLV Instruction
+    instructions[0xB8] = (Instruction){"CLV", cpu_inst_clv, addr_impl, 2};
+
     // SEC Instruction
     instructions[0x38] = (Instruction){"SEC", cpu_inst_sec, addr_impl, 2};
 

@@ -20,9 +20,6 @@ static void reset_at(CPU *cpu, Bus *bus, uint16_t address)
     cpu_reset(cpu);
 }
 
-void test_cld_execution(CPU *cpu);
-void test_sed_execution(CPU *cpu);
-
 int main()
 {
     CPU cpu = {0};

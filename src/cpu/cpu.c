@@ -412,6 +412,13 @@ uint8_t cpu_inst_cld(CPU *cpu)
     return 0;
 }
 
+uint8_t cpu_inst_clv(CPU *cpu)
+{
+    set_flag(cpu, V, false);
+
+    return 0;
+}
+
 uint8_t cpu_inst_sec(CPU *cpu)
 {
     set_flag(cpu, C, true);
