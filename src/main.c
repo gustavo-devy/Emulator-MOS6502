@@ -1,64 +1,57 @@
+#include <assert.h>
 #include <stdio.h>
 #include "cpu/cpu.h"
 #include "bus/bus.h"
 #include "instruction/instruction.h"
 
-void test_cpu_reset(CPU *cpu);
-void test_address_modes(CPU *cpu);
-void test_lda_execution(CPU *cpu);
-void test_ldx_execution(CPU *cpu);
-void test_ldy_execution(CPU *cpu);
-void test_sta_execution(CPU *cpu);
-void test_stx_execution(CPU *cpu);
-void test_sty_execution(CPU *cpu);
-void test_tax_execution(CPU *cpu);
-void test_txa_execution(CPU *cpu);
-void test_tay_execution(CPU *cpu);
-void test_tya_execution(CPU *cpu);
-void test_tsx_execution(CPU *cpu);
-void test_txs_execution(CPU *cpu);
-void test_adc_execution(CPU *cpu);
-void test_sbc_execution(CPU *cpu);
-void test_dex_execution(CPU *cpu);
-void test_inx_execution(CPU *cpu);
-void test_dey_execution(CPU *cpu);
-void test_iny_execution(CPU *cpu);
-void test_pha_execution(CPU *cpu);
-void test_pla_execution(CPU *cpu);
-void test_php_execution(CPU *cpu);
-void test_plp_execution(CPU *cpu);
-void test_cmp_execution(CPU *cpu);
-void test_cpx_execution(CPU *cpu);
-void test_cpy_execution(CPU *cpu);
-void test_bne_execution(CPU *cpu);
-void test_beq_execution(CPU *cpu);
-void test_jsr_execution(CPU *cpu);
-void test_rts_execution(CPU *cpu);
-void test_jmp_execution(CPU *cpu);
-void test_clc_execution(CPU *cpu);
-void test_cli_execution(CPU *cpu);
-void test_sec_execution(CPU *cpu);
-void test_sei_execution(CPU *cpu);
-void test_and_execution(CPU *cpu);
-void test_ora_execution(CPU *cpu);
-void test_eor_execution(CPU *cpu);
-void test_bit_execution(CPU *cpu);
-void test_asl_execution(CPU *cpu);
-void test_lsr_execution(CPU *cpu);
-void test_rol_execution(CPU *cpu);
-void test_ror_execution(CPU *cpu);
-void test_inc_dec_execution(CPU *cpu);
+static void run_instruction(CPU *cpu)
+{
+    do
+    {
+        cpu_step(cpu);
+    } while (cpu->cycles != 0);
+}
+
+static void reset_at(CPU *cpu, Bus *bus, uint16_t address)
+{
+    bus_init(bus);
+    cpu->bus = bus;
+    bus_write(bus, 0xFFFC, address & 0xFF);
+    bus_write(bus, 0xFFFD, address >> 8);
+    cpu_reset(cpu);
+}
 
 int main()
 {
     CPU cpu = {0};
     Bus bus = {0};
 
-    bus_init(&bus);
-    cpu.bus = &bus;
-
     init_instructions_table();
-    test_sei_execution(&cpu);
 
+    reset_at(&cpu, &bus, 0x8000);
+    set_flag(&cpu, Z, false);
+    bus_write(&bus, 0x8000, 0xF0); // BEQ
+    bus_write(&bus, 0x8001, 0x02); // Relative offset
+    run_instruction(&cpu);
+    assert(cpu.PC == 0x8002);
+    assert(cpu.total_cycles == 2); // Branch not taken
+
+    reset_at(&cpu, &bus, 0x8000);
+    set_flag(&cpu, Z, true);
+    bus_write(&bus, 0x8000, 0xF0); // BEQ
+    bus_write(&bus, 0x8001, 0x02); // Relative offset
+    run_instruction(&cpu);
+    assert(cpu.PC == 0x8004);
+    assert(cpu.total_cycles == 3); // Branch taken: 2 + 1
+
+    reset_at(&cpu, &bus, 0x80FD);
+    set_flag(&cpu, Z, true);
+    bus_write(&bus, 0x80FD, 0xF0); // BEQ
+    bus_write(&bus, 0x80FE, 0x02); // Crosses from 0x80xx to 0x81xx
+    run_instruction(&cpu);
+    assert(cpu.PC == 0x8101);
+    assert(cpu.total_cycles == 4); // Branch + page crossing: 2 + 1 + 1
+
+    printf("BEQ branch and cycle tests passed.\n");
     return 0;
 }

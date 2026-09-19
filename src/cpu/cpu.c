@@ -325,12 +325,13 @@ uint8_t cpu_inst_bne(CPU *cpu)
 {
     if (!get_flag(cpu, Z))
     {
+        uint16_t old_pc = cpu->PC;
+
         cpu->PC += cpu->addr_rel;
+        cpu->cycles++;
 
-        if ((cpu->PC & 0xFF00) != ((cpu->PC - cpu->addr_rel) & 0xFF00))
-            return 2; // Page boundary crossed
-
-        return 1; // Branch taken
+        if ((cpu->PC & 0xFF00) != (old_pc & 0xFF00))
+            cpu->cycles++;
     }
 
     return 0; // Branch not taken
@@ -340,12 +341,13 @@ uint8_t cpu_inst_beq(CPU *cpu)
 {
     if (get_flag(cpu, Z))
     {
+        uint16_t old_pc = cpu->PC;
+
         cpu->PC += cpu->addr_rel;
+        cpu->cycles++;
 
-        if ((cpu->PC & 0xFF00) != ((cpu->PC - cpu->addr_rel) & 0xFF00))
-            return 2; // Page boundary crossed
-
-        return 1; // Branch taken
+        if ((cpu->PC & 0xFF00) != (old_pc & 0xFF00))
+            cpu->cycles++;
     }
 
     return 0; // Branch not taken
