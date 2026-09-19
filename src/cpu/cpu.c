@@ -321,9 +321,9 @@ uint8_t cpu_inst_cpy(CPU *cpu)
     return 1;
 }
 
-uint8_t cpu_inst_bne(CPU *cpu)
+static uint8_t cpu_branch_if(CPU *cpu, bool condition)
 {
-    if (!get_flag(cpu, Z))
+    if (condition)
     {
         uint16_t old_pc = cpu->PC;
 
@@ -334,23 +334,47 @@ uint8_t cpu_inst_bne(CPU *cpu)
             cpu->cycles++;
     }
 
-    return 0; // Branch not taken
+    return 0;
+}
+
+uint8_t cpu_inst_bne(CPU *cpu)
+{
+    return cpu_branch_if(cpu, !get_flag(cpu, Z));
 }
 
 uint8_t cpu_inst_beq(CPU *cpu)
 {
-    if (get_flag(cpu, Z))
-    {
-        uint16_t old_pc = cpu->PC;
+    return cpu_branch_if(cpu, get_flag(cpu, Z));
+}
 
-        cpu->PC += cpu->addr_rel;
-        cpu->cycles++;
+uint8_t cpu_inst_bpl(CPU *cpu)
+{
+    return cpu_branch_if(cpu, !get_flag(cpu, N));
+}
 
-        if ((cpu->PC & 0xFF00) != (old_pc & 0xFF00))
-            cpu->cycles++;
-    }
+uint8_t cpu_inst_bmi(CPU *cpu)
+{
+    return cpu_branch_if(cpu, get_flag(cpu, N));
+}
 
-    return 0; // Branch not taken
+uint8_t cpu_inst_bvc(CPU *cpu)
+{
+    return cpu_branch_if(cpu, !get_flag(cpu, V));
+}
+
+uint8_t cpu_inst_bvs(CPU *cpu)
+{
+    return cpu_branch_if(cpu, get_flag(cpu, V));
+}
+
+uint8_t cpu_inst_bcc(CPU *cpu)
+{
+    return cpu_branch_if(cpu, !get_flag(cpu, C));
+}
+
+uint8_t cpu_inst_bcs(CPU *cpu)
+{
+    return cpu_branch_if(cpu, get_flag(cpu, C));
 }
 
 uint8_t cpu_inst_jsr(CPU *cpu)
@@ -380,6 +404,44 @@ uint8_t cpu_inst_rts(CPU *cpu)
     uint16_t return_addr = (high_byte << 8) | low_byte;
 
     cpu->PC = return_addr + 1;
+
+    return 0;
+}
+
+uint8_t cpu_inst_rti(CPU *cpu)
+{
+    cpu->SP++;
+    cpu->P = bus_read(cpu->bus, 0x0100 + cpu->SP);
+    cpu->P |= U;
+
+    cpu->SP++;
+    uint16_t low_byte = bus_read(cpu->bus, 0x0100 + cpu->SP);
+
+    cpu->SP++;
+    uint16_t high_byte = bus_read(cpu->bus, 0x0100 + cpu->SP);
+
+    cpu->PC = (high_byte << 8) | low_byte;
+
+    return 0;
+}
+
+uint8_t cpu_inst_brk(CPU *cpu)
+{
+    cpu->PC++;
+
+    bus_write(cpu->bus, 0x0100 + cpu->SP, (cpu->PC >> 8) & 0xFF);
+    cpu->SP--;
+    bus_write(cpu->bus, 0x0100 + cpu->SP, cpu->PC & 0xFF);
+    cpu->SP--;
+
+    set_flag(cpu, B, true);
+    set_flag(cpu, I, true);
+    bus_write(cpu->bus, 0x0100 + cpu->SP, cpu->P | U | B);
+    cpu->SP--;
+
+    uint16_t lo = bus_read(cpu->bus, 0xFFFE);
+    uint16_t hi = bus_read(cpu->bus, 0xFFFF);
+    cpu->PC = (hi << 8) | lo;
 
     return 0;
 }

@@ -154,11 +154,35 @@ void init_instructions_table()
     // BEQ Instruction
     instructions[0xF0] = (Instruction){"BEQ", cpu_inst_beq, addr_rel, 2};
 
+    // BPL Instruction
+    instructions[0x10] = (Instruction){"BPL", cpu_inst_bpl, addr_rel, 2};
+
+    // BMI Instruction
+    instructions[0x30] = (Instruction){"BMI", cpu_inst_bmi, addr_rel, 2};
+
+    // BVC Instruction
+    instructions[0x50] = (Instruction){"BVC", cpu_inst_bvc, addr_rel, 2};
+
+    // BVS Instruction
+    instructions[0x70] = (Instruction){"BVS", cpu_inst_bvs, addr_rel, 2};
+
+    // BCC and BCS Instructions
+    instructions[0x90] = (Instruction){"BCC", cpu_inst_bcc, addr_rel, 2};
+
+    // BCS Instruction
+    instructions[0xB0] = (Instruction){"BCS", cpu_inst_bcs, addr_rel, 2};
+
     // JRS
     instructions[0x20] = (Instruction){"JSR", cpu_inst_jsr, addr_abs, 6};
 
     // RTS
     instructions[0x60] = (Instruction){"RTS", cpu_inst_rts, addr_impl, 6};
+
+    // RTI Instruction
+    instructions[0x40] = (Instruction){"RTI", cpu_inst_rti, addr_impl, 6};
+
+    // BRK Instruction
+    instructions[0x00] = (Instruction){"BRK", cpu_inst_brk, addr_impl, 7};
 
     // JMP Instructions
     instructions[0x4C] = (Instruction){"JMP", cpu_inst_jmp, addr_abs, 3};

@@ -58,6 +58,7 @@ set(TEST_SOURCES
     tests/test_cld_execution.c
     tests/test_sed_execution.c
     tests/test_clv_execution.c
+    tests/test_branch_execution.c
 )
 
 add_executable(Emulator-MOS6502
