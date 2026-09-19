@@ -77,11 +77,23 @@ O projeto pode ser executado a partir do binário gerado em `build/`:
 
 ## Testes
 
-O projeto usa testes em C para validar instruções e comportamentos básicos da CPU. Para rodar a suíte:
+Os testes ficam separados do executável principal. O alvo `emulator_tests` contém um
+runner que inicializa uma CPU isolada para cada função de teste, e o CTest executa
+esse alvo.
+
+Para compilar e rodar a suíte:
 
 ```bash
+cmake -S . -B build
+cmake --build build
 cd build
 ctest --output-on-failure
+```
+
+Também é possível executar o runner diretamente para ver as mensagens individuais:
+
+```bash
+./emulator_tests
 ```
 
 ## Melhorias planejadas

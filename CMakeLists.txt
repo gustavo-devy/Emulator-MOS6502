@@ -10,6 +10,13 @@ else()
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Werror")
 endif()
 
+set(EMULATOR_SOURCES
+    src/bus/bus.c
+    src/cpu/flags.c
+    src/cpu/cpu.c
+    src/instruction/instruction.c
+)
+
 set(TEST_SOURCES
     tests/test_cpu_reset.c
     tests/test_lda_execution.c
@@ -61,14 +68,26 @@ set(TEST_SOURCES
     tests/test_branch_execution.c
 )
 
-add_executable(Emulator-MOS6502
-    src/main.c
-    src/bus/bus.c
-    src/cpu/flags.c
-    src/cpu/cpu.c
-    src/instruction/instruction.c
+add_library(emulador_core STATIC ${EMULATOR_SOURCES})
+
+target_include_directories(
+    emulador_core PUBLIC
+    ${PROJECT_SOURCE_DIR}/include
+)
+
+add_executable(Emulator-MOS6502 src/main.c)
+target_link_libraries(Emulator-MOS6502 PRIVATE emulador_core)
+
+enable_testing()
+
+add_executable(emulator_tests
+    tests/test_runner.c
     ${TEST_SOURCES}
 )
+
+target_link_libraries(emulator_tests PRIVATE emulador_core)
+
+add_test(NAME emulator_tests COMMAND emulator_tests)
 
 target_include_directories(
     Emulator-MOS6502 PUBLIC
