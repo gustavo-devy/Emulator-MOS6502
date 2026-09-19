@@ -405,6 +405,13 @@ uint8_t cpu_inst_cli(CPU *cpu)
     return 0;
 }
 
+uint8_t cpu_inst_cld(CPU *cpu)
+{
+    set_flag(cpu, D, false);
+
+    return 0;
+}
+
 uint8_t cpu_inst_sec(CPU *cpu)
 {
     set_flag(cpu, C, true);
@@ -415,6 +422,13 @@ uint8_t cpu_inst_sec(CPU *cpu)
 uint8_t cpu_inst_sei(CPU *cpu)
 {
     set_flag(cpu, I, true);
+
+    return 0;
+}
+
+uint8_t cpu_inst_sed(CPU *cpu)
+{
+    set_flag(cpu, D, true);
 
     return 0;
 }

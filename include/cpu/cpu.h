@@ -63,6 +63,8 @@ uint8_t cpu_inst_clc(CPU *cpu);
 uint8_t cpu_inst_sec(CPU *cpu);
 uint8_t cpu_inst_cli(CPU *cpu);
 uint8_t cpu_inst_sei(CPU *cpu);
+uint8_t cpu_inst_cld(CPU *cpu);
+uint8_t cpu_inst_sed(CPU *cpu);
 uint8_t cpu_inst_and(CPU *cpu);
 uint8_t cpu_inst_ora(CPU *cpu);
 uint8_t cpu_inst_eor(CPU *cpu);

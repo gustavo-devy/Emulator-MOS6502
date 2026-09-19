@@ -170,11 +170,17 @@ void init_instructions_table()
     // CLI Instruction
     instructions[0x58] = (Instruction){"CLI", cpu_inst_cli, addr_impl, 2};
 
+    // CLD Instruction
+    instructions[0xD8] = (Instruction){"CLD", cpu_inst_cld, addr_impl, 2};
+
     // SEC Instruction
     instructions[0x38] = (Instruction){"SEC", cpu_inst_sec, addr_impl, 2};
 
     // SEI Instruction
     instructions[0x78] = (Instruction){"SEI", cpu_inst_sei, addr_impl, 2};
+
+    // SED Instruction
+    instructions[0xF8] = (Instruction){"SED", cpu_inst_sed, addr_impl, 2};
 
     // AND Instructions
     instructions[0x29] = (Instruction){"AND", cpu_inst_and, addr_imm, 2};

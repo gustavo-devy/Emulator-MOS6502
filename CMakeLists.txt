@@ -55,6 +55,8 @@ set(TEST_SOURCES
     tests/test_rol_execution.c
     tests/test_ror_execution.c
     tests/test_cli_sei_execution.c
+    tests/test_cld_execution.c
+    tests/test_sed_execution.c
 )
 
 add_executable(Emulator-MOS6502
