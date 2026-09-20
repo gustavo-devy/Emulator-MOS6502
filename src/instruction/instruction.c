@@ -8,7 +8,7 @@ void init_instructions_table()
 {
     for (int i = 0; i < 256; i++)
     {
-        instructions[i] = (Instruction){"???", NULL, NULL, 2};
+        instructions[i] = (Instruction){"INV", NULL, NULL, 2};
     }
 
     // LDA Instructions

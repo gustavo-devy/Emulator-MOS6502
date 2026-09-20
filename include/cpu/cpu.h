@@ -23,7 +23,7 @@ typedef struct CPU
     uint32_t total_cycles; // Total cycles executed
 } CPU;
 
-void cpu_step(CPU *cpu);
+int cpu_step(CPU *cpu);
 void cpu_reset(CPU *cpu);
 void cpu_dump_registers(CPU *cpu);
 void cpu_current_instruction(CPU *cpu);

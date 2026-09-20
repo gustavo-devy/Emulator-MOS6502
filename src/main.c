@@ -1,15 +1,19 @@
 #include <stdio.h>
+#include <string.h>
 #include "cpu/cpu.h"
 #include "bus/bus.h"
 #include "instruction/instruction.h"
 
-void execute_program(CPU *cpu, int view_registers)
+int execute_program(CPU *cpu, int view_registers)
 {
     while (1)
     {
         do
         {
-            cpu_step(cpu);
+            if (cpu_step(cpu) == -1)
+            {
+                return -1;
+            }
         } while (cpu->cycles != 0);
 
         if (view_registers)
@@ -19,9 +23,11 @@ void execute_program(CPU *cpu, int view_registers)
 
             char c = getchar();
             if (c == 'q')
-                return;
+                return 0;
         }
     }
+
+    return 0;
 }
 
 int main()
@@ -52,6 +58,8 @@ int main()
 
     bus_write(&bus, 0x8008, 0xA2); // LDX #0x10
     bus_write(&bus, 0x8009, 0x10);
+
+    bus_write(&bus, 0x800A, 0xFF); // Invalid opcode to test error handling
 
     execute_program(&cpu, 1);
 

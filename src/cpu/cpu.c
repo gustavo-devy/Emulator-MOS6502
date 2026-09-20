@@ -1,12 +1,12 @@
 #include <stdio.h>
+#include <string.h>
 #include "cpu/cpu.h"
 #include "instruction/instruction.h"
 
 void cpu_current_instruction(CPU *cpu)
 {
-    Instruction inst = instructions[cpu->opcode];
-    printf("PC: 0x%04X, Opcode: 0x%02X, Instruction: %s, Cycles: %d\n",
-           cpu->PC - 1, cpu->opcode, inst.name, inst.cycles);
+    printf("Opcode: 0x%02X, Instruction: %s, Cycles: %d\n",
+           cpu->opcode, instructions[cpu->opcode].name, instructions[cpu->opcode].cycles);
 }
 
 void cpu_dump_registers(CPU *cpu)
@@ -32,13 +32,19 @@ void cpu_reset(CPU *cpu)
     cpu->total_cycles = 0;
 }
 
-void cpu_step(CPU *cpu)
+int cpu_step(CPU *cpu)
 {
     if (cpu->cycles == 0)
     {
         // Fetch the next instruction
         cpu->opcode = bus_read(cpu->bus, cpu->PC);
         cpu->PC++;
+
+        if (strcmp(instructions[cpu->opcode].name, "INV") == 0)
+        {
+            printf("Invalid opcode: 0x%02X at PC: 0x%04X\n", cpu->opcode, cpu->PC - 1);
+            return -1;
+        }
 
         // Execute the instruction
         Instruction inst = instructions[cpu->opcode];
@@ -52,6 +58,8 @@ void cpu_step(CPU *cpu)
 
     cpu->cycles--;
     cpu->total_cycles++;
+
+    return 0;
 }
 
 uint8_t cpu_inst_lda(CPU *cpu)
