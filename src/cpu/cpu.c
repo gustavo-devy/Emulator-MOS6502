@@ -1,5 +1,19 @@
+#include <stdio.h>
 #include "cpu/cpu.h"
 #include "instruction/instruction.h"
+
+void cpu_current_instruction(CPU *cpu)
+{
+    Instruction inst = instructions[cpu->opcode];
+    printf("PC: 0x%04X, Opcode: 0x%02X, Instruction: %s, Cycles: %d\n",
+           cpu->PC - 1, cpu->opcode, inst.name, inst.cycles);
+}
+
+void cpu_dump_registers(CPU *cpu)
+{
+    printf("A:  0x%02X \nX:  0x%02X \nY:  0x%02X \nSP: 0x%02X \nPC: 0x%04X \nP:  0x%02X\n--------------> ",
+           cpu->A, cpu->X, cpu->Y, cpu->SP, cpu->PC, cpu->P);
+}
 
 void cpu_reset(CPU *cpu)
 {

@@ -25,6 +25,8 @@ typedef struct CPU
 
 void cpu_step(CPU *cpu);
 void cpu_reset(CPU *cpu);
+void cpu_dump_registers(CPU *cpu);
+void cpu_current_instruction(CPU *cpu);
 
 // Instruction implementations
 uint8_t cpu_inst_lda(CPU *cpu);
