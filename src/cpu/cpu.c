@@ -20,13 +20,13 @@ void cpu_reset(CPU *cpu)
     uint16_t lo = bus_read(cpu->bus, 0xFFFC);
     uint16_t hi = bus_read(cpu->bus, 0xFFFD);
 
-    cpu->PC = (hi << 8) | lo; // Set the program counter
+    cpu->PC = (hi << 8) | lo;
 
     cpu->A = 0;
     cpu->X = 0;
     cpu->Y = 0;
-    cpu->SP = 0xFD;    // Stack Pointer starts at 0xFD
-    cpu->P = 0x00 | U; // Clear all flags except the unused one
+    cpu->SP = 0xFD;
+    cpu->P = U | I;
 
     cpu->cycles = 0;
     cpu->total_cycles = 0;
@@ -36,7 +36,6 @@ int cpu_step(CPU *cpu)
 {
     if (cpu->cycles == 0)
     {
-        // Fetch the next instruction
         cpu->opcode = bus_read(cpu->bus, cpu->PC);
         cpu->PC++;
 
@@ -46,7 +45,6 @@ int cpu_step(CPU *cpu)
             return -1;
         }
 
-        // Execute the instruction
         Instruction inst = instructions[cpu->opcode];
 
         cpu->cycles = inst.cycles;
@@ -176,15 +174,28 @@ uint8_t cpu_inst_txs(CPU *cpu)
 uint8_t cpu_inst_adc(CPU *cpu)
 {
     uint8_t data = bus_read(cpu->bus, cpu->addr_abs);
-    uint16_t temp = (uint16_t)cpu->A + (uint16_t)data + (uint16_t)get_flag(cpu, C);
+    uint8_t carry_in = get_flag(cpu, C);
+    uint16_t binary_sum = (uint16_t)cpu->A + (uint16_t)data + (uint16_t)carry_in;
 
-    set_flag(cpu, C, temp > 255);
-    set_flag(cpu, Z, (temp & 0x00FF) == 0);
-    set_flag(cpu, N, temp & 0x80);
+    set_flag(cpu, Z, (binary_sum & 0x00FF) == 0);
+    set_flag(cpu, N, binary_sum & 0x0080);
+    set_flag(cpu, V,
+             (~((uint16_t)cpu->A ^ data) &
+              ((uint16_t)cpu->A ^ binary_sum) & 0x0080) != 0);
 
-    set_flag(cpu, V, (~((uint16_t)cpu->A ^ (uint16_t)data) & ((uint16_t)cpu->A ^ (uint16_t)temp)) & 0x0080);
+    uint16_t result = binary_sum;
 
-    cpu->A = temp & 0x00FF;
+    if (get_flag(cpu, D))
+    {
+        if (((cpu->A & 0x0F) + (data & 0x0F) + carry_in) > 9)
+            result += 0x06;
+
+        if (result > 0x99)
+            result += 0x60;
+    }
+
+    set_flag(cpu, C, result > 0xFF);
+    cpu->A = result & 0xFF;
 
     return 1;
 }
@@ -192,16 +203,38 @@ uint8_t cpu_inst_adc(CPU *cpu)
 uint8_t cpu_inst_sbc(CPU *cpu)
 {
     uint8_t data = bus_read(cpu->bus, cpu->addr_abs);
-    uint16_t value = ((uint16_t)data) ^ 0x00FF;
+    uint8_t carry_in = get_flag(cpu, C);
+    uint16_t value = (uint16_t)data ^ 0x00FF;
+    uint16_t binary_result = (uint16_t)cpu->A + value + carry_in;
 
-    uint16_t temp = (uint16_t)cpu->A + value + (uint16_t)get_flag(cpu, C);
+    set_flag(cpu, C, binary_result & 0xFF00);
+    set_flag(cpu, Z, (binary_result & 0x00FF) == 0);
+    set_flag(cpu, N, binary_result & 0x0080);
+    set_flag(cpu, V,
+             ((binary_result ^ (uint16_t)cpu->A) &
+              (binary_result ^ value) & 0x0080) != 0);
 
-    set_flag(cpu, C, temp & 0xFF00);
-    set_flag(cpu, Z, (temp & 0x00FF) == 0);
-    set_flag(cpu, N, temp & 0x80);
-    set_flag(cpu, V, ((temp ^ (uint16_t)cpu->A) & (temp ^ value)) & 0x0080);
+    if (get_flag(cpu, D))
+    {
+        int16_t low = (cpu->A & 0x0F) - (data & 0x0F) - (1 - carry_in);
+        int16_t high = (cpu->A >> 4) - (data >> 4);
 
-    cpu->A = temp & 0x00FF;
+        if (low < 0)
+        {
+            low -= 6;
+            high--;
+        }
+
+        if (high < 0)
+            high -= 6;
+
+        cpu->A = ((uint8_t)(high * 16) & 0xF0) |
+                 ((uint8_t)low & 0x0F);
+    }
+    else
+    {
+        cpu->A = binary_result & 0x00FF;
+    }
 
     return 1;
 }

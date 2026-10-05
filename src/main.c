@@ -59,8 +59,6 @@ int main()
     bus_write(&bus, 0x8008, 0xA2); // LDX #0x10
     bus_write(&bus, 0x8009, 0x10);
 
-    bus_write(&bus, 0x800A, 0xFF); // Invalid opcode to test error handling
-
     execute_program(&cpu, 1);
 
     return 0;

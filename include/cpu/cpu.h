@@ -14,13 +14,13 @@ typedef struct CPU
     uint16_t PC; // Program Counter
     Flags P;     // Processor Status (Flags)
 
-    Bus *bus; // Pointer to the bus for memory access
+    Bus *bus;
 
     uint16_t addr_abs;
     uint16_t addr_rel;
     uint8_t opcode;
-    uint8_t cycles;        // Cycles for the current instruction
-    uint32_t total_cycles; // Total cycles executed
+    uint8_t cycles;
+    uint32_t total_cycles;
 } CPU;
 
 int cpu_step(CPU *cpu);
