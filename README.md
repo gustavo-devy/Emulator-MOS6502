@@ -133,15 +133,6 @@ Este projeto ainda está em evolução. Algumas melhorias importantes que podem 
 
 Este projeto é uma base sólida para aprendizado e desenvolvimento inicial de um emulador 6502, mas ainda não busca ser um emulador “de produção” com fidelidade de hardware completa. A intenção principal é entender a arquitetura e a lógica do processador de forma prática.
 
-## Próximo passo recomendado
-
-O próximo passo ideal é focar em:
-
-- refinamento de ciclos e timings;
-- testes de instruções restantes;
-- ajustes de fidelidade em branches e interrupções;
-- preparação para suportar ROMs e programas reais.
-
 ## Contribuição
 
 Sinta-se livre para usar o projeto como base para estudo, extensão ou experimentação. A estrutura foi organizada para facilitar evolução incremental do emulador.
